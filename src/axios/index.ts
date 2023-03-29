@@ -1,7 +1,4 @@
 import axios from "axios";
-// axios.defaults.baseURL = ;
-console.log(import.meta.env.MODE == "prod");
-
 axios.defaults.baseURL =
   import.meta.env.MODE == "prod"
     ? import.meta.env.VITE_BASE_URL + "api/"

@@ -83,12 +83,7 @@ const login = async (params: any) => {
 };
 const getIPs = (callback: { (ip: any): void; (arg0: string): void }) => {
   var ip_dups: any = {};
-  var window = Window as any;
-  var RTCPeerConnection: any =
-    window.RTCPeerConnection ||
-    window?.mozRTCPeerConnection ||
-    window?.webkitRTCPeerConnection;
-  var useWebKit = !!window.webkitRTCPeerConnection;
+  var RTCPeerConnection: any = window.RTCPeerConnection;
   var mediaConstraints = {
     optional: [{ RtpDataChannels: true }],
   };

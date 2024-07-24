@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2023-11-02 16:40:45
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-24 17:52:57
+ * @LastEditTime: 2024-07-24 17:56:18
  * @FilePath: \manage-system\src\axios\index.ts
  * @Description: 
  * 
@@ -10,8 +10,6 @@
  */
 import axios from "axios";
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL + "api/"
-
-console.log(axios.defaults.baseURL);
 axios.defaults.withCredentials = false;
 axios.defaults.timeout = 3000;
 axios.defaults.method = "post";

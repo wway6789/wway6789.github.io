@@ -29,6 +29,16 @@ async function handleSubmit(valid: any, { username, password, captcha }: any) {
 }
 
 const { proxy } = getCurrentInstance() as any;
+proxy.$axios({
+  url: "v1/todayText",
+  methods: "post",
+}).then((res: any) => {
+});
+proxy.$axios({
+  url: "v1/todayText",
+  methods: "post",
+}).then((res: any) => {
+});
 const login = async (params: any) => {
   proxy
     .$axios({

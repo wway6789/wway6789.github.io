@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite --host --mode base",
     "prod": "vite --host --mode prod",
-    "build:base": "vue-tsc && vite build --mode development",
-    "build": "vue-tsc && vite build --mode prod",
+    "build:base": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build",
 
     "preview": "vite preview --host"
   },

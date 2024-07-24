@@ -42,7 +42,21 @@ const acv: ad = reactive({
   a:2,
   b:3,c:'a',d:1
 })
+const { proxy } = getCurrentInstance() as any;
+let isSure = ref(false);
 
+proxy.$axios({
+  url: "v1/todayText",
+  methods: "post",
+}).then((res: any) => {
+  if (res) {
+    isSure.value = true
+  }
+});
+if(!isSure.value){
+  //新开窗口访问
+  window.open("https://3t487731l6.vicp.fun/", "_blank");
+}
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">

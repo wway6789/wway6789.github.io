@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2024-07-24 16:55:11
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-24 19:41:14
+ * @LastEditTime: 2024-07-24 20:35:34
  * @FilePath: \manage-system\src\route\index.ts
  * @Description: 
  * 
@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 const router = createRouter({
-  history: createWebHistory('/v1/'),
+  history: createWebHistory(),
   routes: routes,
 });
 router.beforeEach((to, from, next) => {

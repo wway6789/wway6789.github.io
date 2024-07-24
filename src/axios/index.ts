@@ -2,14 +2,14 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2023-11-02 16:40:45
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-24 18:07:11
+ * @LastEditTime: 2024-07-24 18:30:20
  * @FilePath: \manage-system\src\axios\index.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
  */
 import axios from "axios";
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL + "api/"
+axios.defaults.baseURL = 'https://3t487731l6.vicp.fun/api/'
 axios.defaults.withCredentials = false;
 axios.defaults.timeout = 3000;
 axios.defaults.method = "post";

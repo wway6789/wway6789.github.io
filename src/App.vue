@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import menuList from "@/route/menu";
-import { ref, computed, getCurrentInstance, watch, provide } from "vue";
+import { ref, computed, getCurrentInstance, watch, provide, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "./pinia/user";
+import sideLogo from '@/assets/logo_side.png'
+import Logo from '@/assets/logo.png'
 let isCollapsed = ref(false);
 console.log(menuList);
 const route = useRouter();
@@ -25,6 +27,22 @@ function toLoading2() {
     route.push("/login");
   }, 1000);
 }
+type abcd = {
+  a: number,c: any
+} & {
+  b:number
+}
+interface abc {
+  a:number,
+  b:number,c:string,d:number
+}
+
+type ad =  abcd &abc 
+const acv: ad = reactive({
+  a:2,
+  b:3,c:'a',d:1
+})
+
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">
@@ -38,13 +56,14 @@ function toLoading2() {
         <div style="padding: 10px; text-align: center">
           <img
             v-if="!isCollapsed"
-            src="src/assets/logo.png"
+            :src="Logo"
             style="width: 100%"
             alt=""
           />
           <img
             v-else
-            src="src/assets/logo_side.png"
+            :src="sideLogo"
+            sizes="[]"
             style="width: 100%"
             alt=""
           />
@@ -200,4 +219,7 @@ function toLoading2() {
 .dev-run-preview .dev-run-preview-edit {
   display: none;
 }
-</style>
+.ss{
+  size: 0cap;
+}
+</style>: any: any

@@ -1,8 +1,15 @@
+/*
+ * @Author: wway 951357249@qq.com
+ * @Date: 2023-11-02 16:40:45
+ * @LastEditors: wway 951357249@qq.com
+ * @LastEditTime: 2024-07-24 15:49:39
+ * @FilePath: \manage-system\src\axios\index.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ */
 import axios from "axios";
-axios.defaults.baseURL =
-  import.meta.env.MODE == "prod"
-    ? import.meta.env.VITE_BASE_URL + "api/"
-    : "/apis/api";
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL + "api/"
 
 console.log(axios.defaults.baseURL);
 

@@ -1,6 +1,22 @@
 <template>
   <Tree :data="data4" show-checkbox multiple @on-check-change="aa"></Tree>
   <Table border :columns="columns7" :data="data6"></Table>
+  <Button type="primary" @click="modal = true">Display dialog box</Button>
+  <Modal v-model="modal" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel">
+    <div>
+      <Button type="primary" @click="addData8">add</Button>
+
+      <Table highlight-row ref="currentRowTable" :columns="columns" :data="data8">
+        
+        <template #action="{ row, index }">
+          <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
+          <Button type="error" size="small" @click="remove9(index)">Delete</Button>
+        </template>
+
+      </Table>
+      <!-- <Button @click="handleClearCurrentRow" style="margin-top:16px">Clear</Button> -->
+    </div>
+  </Modal>
 </template>
 <script setup lang="ts">
 import { getCurrentInstance, reactive, ref, resolveComponent } from "vue";
@@ -1356,4 +1372,99 @@ const show = (index: any) => {
 const remove = (index: number) => {
   data6.splice(index, 1);
 };
+
+let modal = ref(false)
+let columns = ref([
+  {
+    type: 'index',
+    align: 'center',
+    title:'审核级次'
+  },
+  {
+    title: 'Name',
+    key: 'name'
+  },
+  {
+    title: 'Age',
+    key: 'age'
+  },
+  {
+    title: 'Address',
+    key: 'address'
+  },
+  {
+    title: 'Action',
+    slot: 'action',
+    width: 150,
+    align: 'center'
+  }
+]);
+let data8 = ref([
+  {
+    name: 'John Brown',
+    age: 18,
+    address: 'New York No. 1 Lake Park',
+    date: '2016-10-03',
+    index: 0
+  },
+  {
+    name: 'Jim Green',
+    age: 24,
+    address: 'London No. 1 Lake Park',
+    date: '2016-10-01',
+    index: 1
+
+  },
+  {
+    name: 'Joe Black',
+    age: 30,
+    address: 'Sydney No. 1 Lake Park',
+    date: '2016-10-02',
+    index: 2
+
+  },
+  {
+    name: 'Jon Snow',
+    age: 26,
+    address: 'Ottawa No. 2 Lake Park',
+    date: '2016-10-04',
+    index: 3
+
+  }
+])
+const ok = () => {
+  console.log(data8.value);
+
+  proxy.$Message.info('Clicked ok');
+}
+const cancel = () => {
+  proxy.$Message.info('Clicked cancel');
+}
+const addData8 = () => {
+  let obj = {
+    name: 'Jon Snow2',
+    age: 26,
+    address: 'Ottawa No. 2 Lake Park',
+    date: '2016-10-04',
+    index: data8.value.length
+  }
+  data8.value.push(obj)
+}
+const remove9 = (val: number) => {
+  data8.value.splice(val, 1);
+  data8.value.map((item, index2) => {
+     item.index = index2
+  })
+}
+//写一个vue3防抖
+const debounce = (fn: Function, delay: number) => {
+  let timer: number | null = null;
+  return function (this: any, ...args: any[]) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
 </script>

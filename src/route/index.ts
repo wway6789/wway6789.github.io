@@ -48,14 +48,14 @@ const router = createRouter({
 });
 router.beforeEach((to,from,next) => {
 
-  if (!userStore().checkLogin) {
-    if (to.name == "login") {
-      next();
-    } else {
-      next("login");
-    }
-  } else {
+  // if (!userStore().checkLogin) {
+  //   if (to.name == "login") {
+  //     next();
+  //   } else {
+  //     next("login");
+  //   }
+  // } else {
     next();
-  }
+  // }
 });
 export default router;

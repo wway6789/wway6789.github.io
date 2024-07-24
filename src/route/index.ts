@@ -1,3 +1,13 @@
+/*
+ * @Author: wway 951357249@qq.com
+ * @Date: 2024-07-24 16:55:11
+ * @LastEditors: wway 951357249@qq.com
+ * @LastEditTime: 2024-07-24 19:41:14
+ * @FilePath: \manage-system\src\route\index.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ */
 import { userStore } from "@/pinia/user";
 const route = useRouter();
 import {
@@ -46,16 +56,16 @@ const router = createRouter({
   history: createWebHistory(),
   routes: routes,
 });
-router.beforeEach((to,from,next) => {
+router.beforeEach((to, from, next) => {
 
-  // if (!userStore().checkLogin) {
-  //   if (to.name == "login") {
-  //     next();
-  //   } else {
-  //     next("login");
-  //   }
-  // } else {
+  if (!userStore().checkLogin) {
+    if (to.name == "login") {
+      next();
+    } else {
+      next("login");
+    }
+  } else {
     next();
-  // }
+  }
 });
 export default router;

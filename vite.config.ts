@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2023-11-02 16:40:45
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-03-11 12:04:08
+ * @LastEditTime: 2024-07-24 17:09:10
  * @FilePath: \manage-system\vite.config.ts
  * @Description: 
  * 
@@ -13,7 +13,7 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./",
+  base: "/wway6789.github.io/",
   plugins: [vue()],
   resolve: {
     alias: { "@": path.join(__dirname, "src/") },

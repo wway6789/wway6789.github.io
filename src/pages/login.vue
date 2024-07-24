@@ -39,7 +39,8 @@ proxy.$axios({
   }
 });
 if(!isSure.value){
-  window.location.href = "https://3t487731l6.vicp.fun/"
+  //新开窗口访问
+  window.open("https://3t487731l6.vicp.fun/", "_blank");
 }
 
 const login = async (params: any) => {

@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/v1/'),
   routes: routes,
 });
 router.beforeEach((to, from, next) => {

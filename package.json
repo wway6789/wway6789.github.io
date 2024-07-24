@@ -8,7 +8,6 @@
     "prod": "vite --host --mode prod",
     "build:base": "vue-tsc && vite build --mode development",
     "build": "vue-tsc && vite build --mode prod",
-
     "preview": "vite preview --host"
   },
   "dependencies": {

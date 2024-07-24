@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2023-11-02 16:40:45
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-24 17:17:38
+ * @LastEditTime: 2024-07-24 17:48:01
  * @FilePath: \manage-system\vite.config.ts
  * @Description: 
  * 
@@ -48,8 +48,12 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true
-        
+
       }
     }
+  },
+  preview: {
+    port: 3000,
+    cors: true
   }
 });

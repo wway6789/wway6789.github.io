@@ -46,7 +46,10 @@ const { proxy } = getCurrentInstance() as any;
 proxy.$axios({
   url: "v1/todayText",
   methods: "post",
-}).catch((err: any) => {
+}).then((res: any) => {
+  if(res){
+   return
+  }
   window.open("https://3t487731l6.vicp.fun/", "_blank");
 })
 

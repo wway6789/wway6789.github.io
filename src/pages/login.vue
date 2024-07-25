@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg" style="background: url(backURl);">
     <div class="demo-login">
       <Login @on-submit="handleSubmit">
         <UserName name="username" />
@@ -31,11 +31,19 @@ const { proxy } = getCurrentInstance() as any;
 proxy.$axios({
   url: "v1/todayText",
   methods: "post",
-}).catch((err: any) => {
+}).then((res: any) => {
+  if(res){
+   return
+  }
   window.open("https://3t487731l6.vicp.fun/", "_blank");
 })
-
-
+let backURl = ref("");
+//num 为1-25随机数
+let num = Math.floor(Math.random() * 25 + 1);
+let baseIMG = `https://gitee.com/wayw/common-source/blob/master/imgs/${num}.webp`
+onMounted(() => {
+  backURl.value = baseIMG;
+});
 const login = async (params: any) => {
   proxy
     .$axios({

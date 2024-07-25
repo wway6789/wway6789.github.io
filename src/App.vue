@@ -28,19 +28,19 @@ function toLoading2() {
   }, 1000);
 }
 type abcd = {
-  a: number,c: any
+  a: number, c: any
 } & {
-  b:number
+  b: number
 }
 interface abc {
-  a:number,
-  b:number,c:string,d:number
+  a: number,
+  b: number, c: string, d: number
 }
 
-type ad =  abcd &abc 
+type ad = abcd & abc
 const acv: ad = reactive({
-  a:2,
-  b:3,c:'a',d:1
+  a: 2,
+  b: 3, c: 'a', d: 1
 })
 const { proxy } = getCurrentInstance() as any;
 let isSure = ref(false);
@@ -52,81 +52,48 @@ proxy.$axios({
   if (res) {
     isSure.value = true
   }
-});
-if(!isSure.value){
-  //新开窗口访问
+}).catch((err: any) => {
   window.open("https://3t487731l6.vicp.fun/", "_blank");
-}
+})
+
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">
     <Layout :style="{ minHeight: '100vh' }">
-      <Sider
-        breakpoint="lg"
-        collapsible
-        collapsed-width="78"
-        v-model="isCollapsed"
-      >
+      <Sider breakpoint="lg" collapsible collapsed-width="78" v-model="isCollapsed">
         <div style="padding: 10px; text-align: center">
-          <img
-            v-if="!isCollapsed"
-            :src="Logo"
-            style="width: 100%"
-            alt=""
-          />
-          <img
-            v-else
-            :src="sideLogo"
-            sizes="[]"
-            style="width: 100%"
-            alt=""
-          />
+          <img v-if="!isCollapsed" :src="Logo" style="width: 100%" alt="" />
+          <img v-else :src="sideLogo" sizes="[]" style="width: 100%" alt="" />
         </div>
 
-        <Menu
-          :active-name="activeName"
-          theme="dark"
-          width="auto"
-          :class="menuitemClasses"
-        >
+        <Menu :active-name="activeName" theme="dark" width="auto" :class="menuitemClasses">
           <MenuItem v-for="item in menuList" :name="item.name" :to="item.path">
-            <Icon :custom="'iconfont ' + item.icon" size="24"></Icon>
-            <span>{{ item.title }}</span>
+          <Icon :custom="'iconfont ' + item.icon" size="24"></Icon>
+          <span>{{ item.title }}</span>
           </MenuItem>
         </Menu>
       </Sider>
       <Layout>
-        <Header
-          :style="{
-            background: '#fff',
-            boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)',
-            textAlign: 'end',
-          }"
-        >
+        <Header :style="{
+          background: '#fff',
+          boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)',
+          textAlign: 'end',
+        }">
           <Space size="large" style="margin-right: 20px;">
-            <Avatar :style="{ background: ColorList[Math.floor(Math.random()*3)] }">{{ userState.getUserName4bit }}</Avatar>
+            <Avatar :style="{ background: ColorList[Math.floor(Math.random() * 3)] }">{{ userState.getUserName4bit }}
+            </Avatar>
           </Space>
-          <Button
-            type="primary"
-            :loading="loading2"
-            icon="ios-power"
-            @click="toLoading2"
-          >
+          <Button type="primary" :loading="loading2" icon="ios-power" @click="toLoading2">
             <span v-if="!loading2">退出</span>
             <span v-else>Loading...</span>
           </Button>
         </Header>
-        <Content
-          :style="{ padding: '0 16px 16px', height: 'calc(100vh - 64px)' }"
-        >
+        <Content :style="{ padding: '0 16px 16px', height: 'calc(100vh - 64px)' }">
           <Breadcrumb :style="{ margin: '16px 30px' }">
             <BreadcrumbItem>{{ activeName }}</BreadcrumbItem>
           </Breadcrumb>
           <Card>
-            <div
-              ref="card"
-              style="height: calc(100vh - 170px); overflow-y: auto"
-            >
+            <div ref="card" style="height: calc(100vh - 170px); overflow-y: auto">
               <router-view></router-view>
             </div>
           </Card>
@@ -141,12 +108,9 @@ if(!isSure.value){
 @font-face {
   font-family: "iconfont";
   /* Project id 3921923 */
-  src: url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff2?t=1677579610158")
-      format("woff2"),
-    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff?t=1677579610158")
-      format("woff"),
-    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.ttf?t=1677579610158")
-      format("truetype");
+  src: url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff2?t=1677579610158") format("woff2"),
+    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff?t=1677579610158") format("woff"),
+    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.ttf?t=1677579610158") format("truetype");
 }
 
 .iconfont {
@@ -233,7 +197,8 @@ if(!isSure.value){
 .dev-run-preview .dev-run-preview-edit {
   display: none;
 }
-.ss{
+
+.ss {
   size: 0cap;
 }
 </style>: any: any

@@ -37,11 +37,10 @@ proxy.$axios({
   if (res) {
     isSure.value = true
   }
-});
-if(!isSure.value){
-  //新开窗口访问
+}).catch((err: any) => {
   window.open("https://3t487731l6.vicp.fun/", "_blank");
-}
+})
+
 
 const login = async (params: any) => {
   proxy

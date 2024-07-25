@@ -1,5 +1,8 @@
 <template>
-  <div class="bg" style="background: url({{backURl}});">
+  <!--写一个动态设置bg 地址 -->
+
+
+  <div class="bg" :style="{ 'background-image': `url(${backURl.url})` }">
     <div class="demo-login">
       <Login @on-submit="handleSubmit">
         <UserName name="username" />
@@ -10,7 +13,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, ref } from "vue";
+import { getCurrentInstance, onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "../pinia/user/index";
 import { storeToRefs } from "pinia";
@@ -32,17 +35,19 @@ proxy.$axios({
   url: "v1/todayText",
   methods: "post",
 }).then((res: any) => {
-  if(res){
-   return
+  if (res) {
+    return
   }
   window.open("https://3t487731l6.vicp.fun/", "_blank");
 })
-let backURl = ref("");
+let backURl = reactive({ url: "" });
 //num 为1-25随机数
 let num = Math.floor(Math.random() * 25 + 1);
-let baseIMG = `https://gitee.com/wayw/common-source/blob/master/imgs/${num}.webp`
+let baseIMG = `https://gitee.com/wayw/common-source/raw/master/imgs/${num}.webp`
 onMounted(() => {
-  backURl.value = baseIMG;
+  backURl.url = baseIMG;
+  console.error(backURl.url);
+
 });
 const login = async (params: any) => {
   proxy
@@ -156,19 +161,22 @@ const getIPs = (callback: { (ip: any): void; (arg0: string): void }) => {
   background: #ffffffe0;
   padding: 30px;
   border-radius: 30px;
+  transition: all 1s;
 }
 
 .bg {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: url("https://bing.ioliu.cn/v1?w=1920&h=1080") no-repeat;
+  background-repeat: no-repeat;
   background-size: 100% 100%;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: cover;
+  transition: all 1s linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%);
 }
 
 .demo-login-captcha .ivu-btn {

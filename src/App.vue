@@ -43,15 +43,9 @@ const acv: ad = reactive({
   b: 3, c: 'a', d: 1
 })
 const { proxy } = getCurrentInstance() as any;
-let isSure = ref(false);
-
 proxy.$axios({
   url: "v1/todayText",
   methods: "post",
-}).then((res: any) => {
-  if (res) {
-    isSure.value = true
-  }
 }).catch((err: any) => {
   window.open("https://3t487731l6.vicp.fun/", "_blank");
 })

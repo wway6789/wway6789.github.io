@@ -1262,20 +1262,20 @@ let columns7 = ref([
             },
             onChange: (event: any) => {
               data6[params.index].name = event.target._value;
-              console.log(data6);
+              //console.log(data6);
             },
             onClear: (event: any) => {
               data6[params.index].name = event.target._value;
-              console.log(data6);
+              //console.log(data6);
             },
           },
           data4.value.map((item: any) => {
             return h(resolveComponent("Option"), {
               value: item.title,
               onClick: (event: any) => {
-                console.log(event);
+                //console.log(event);
                 data6[params.index].name = event.target.innerHTML;
-                console.log(data6);
+                //console.log(data6);
               },
             });
           })
@@ -1361,7 +1361,7 @@ let columns7 = ref([
 
 const { proxy } = getCurrentInstance() as any;
 const aa = (value: any) => {
-  console.log(value);
+  //console.log(value);
 };
 const show = (index: any) => {
   proxy.$Modal.info({
@@ -1433,7 +1433,7 @@ let data8 = ref([
   }
 ])
 const ok = () => {
-  console.log(data8.value);
+  //console.log(data8.value);
 
   proxy.$Message.info('Clicked ok');
 }

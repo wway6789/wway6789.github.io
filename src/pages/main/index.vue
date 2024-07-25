@@ -6,14 +6,14 @@ let newList = ref([]);
 const currentInstance = getCurrentInstance() as any;
 const { proxy } = currentInstance;
 let loading = ref(true);
-console.log(proxy.$axios);
+//console.log(proxy.$axios);
 proxy
   .$axios({
     url: "news/queryNews",
     methods: "post",
   })
   .then((res: any) => {
-    console.log(res);
+    //console.log(res);
     loading.value = false;
     newList.value = res;
   });
@@ -111,7 +111,7 @@ indexArr.map((i: any, v: any) => {
   });
   arr2.push(obj);
 });
-console.log(arr2);
+//console.log(arr2);
 
 // [{ type: 'QIYEPAY', 'a': '200', 'b': '300', 'c': '400', 'd': '500', 'e': '600', 'f': '700', 'g': '200', 'h': '300', 'i': '100' },
 // { type: 'FUWUPAY', 'a': '300', 'b': '300', 'c': '300', 'd': '300', 'e': '300', 'f': '300', 'g': '300', 'h': '300', 'i': '300' },

@@ -70,7 +70,7 @@ let loading = ref(true);
 let user = reactive({ list: [] });
 let table = ref();
 let isShowDraw = ref(false);
-console.log(proxy);
+//console.log(proxy);
 const card: any = inject("card");
 let winheight = ref(200);
 let currentPage = ref(1);
@@ -151,17 +151,17 @@ function queryList() {
       });
       user.list = res.result;
       total.value = res.total;
-      console.log(columns2);
+      //console.log(columns2);
     });
 }
 queryList();
 const onPagesizeChange = (pagesize: any) => {
-  console.log(event);
+  //console.log(event);
   PageSize.value = pagesize;
   queryList();
 };
 const onChange = (page: any) => {
-  console.log(event);
+  //console.log(event);
   currentPage.value = page;
   queryList();
 };
@@ -172,10 +172,10 @@ const Towinheight =()=>{
   return null
 }
 onMounted(() => {
-  console.log(card.value.offsetHeight);
+  //console.log(card.value.offsetHeight);
   Towinheight()
 
-  console.log(table.value);
+  //console.log(table.value);
 });
 
 const exportData = (type: any) => {
@@ -186,10 +186,10 @@ const exportData = (type: any) => {
   }
 };
 const toWidth = (width: any) => {
-  console.log(width);
+  //console.log(width);
 };
 const show = (params: any) => {
-  console.log(params);
+  //console.log(params);
   isShowDraw.value = true;
   UserProfile.value = Object.entries(params).sort();
 };

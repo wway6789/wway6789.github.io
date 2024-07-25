@@ -16,6 +16,7 @@ import { userStore } from "../pinia/user/index";
 import { storeToRefs } from "pinia";
 let captcha = ref("captcha1.png");
 const route = useRouter();
+
 const userstate = userStore();
 
 async function handleSubmit(valid: any, { username, password, captcha }: any) {
@@ -35,7 +36,7 @@ proxy.$axios({
   if (res) {
     return
   }
-  window.open("https://3t487731l6.vicp.fun/", "_blank");
+  window.open("https://3t487731l6.vicp.fun/");
 })
 let backURl = reactive({ url: "" });
 //num 为1-25随机数
@@ -43,7 +44,6 @@ let num = Math.floor(Math.random() * 25 + 1);
 let baseIMG = `https://gitee.com/wayw/common-source/raw/master/imgs/${num}.webp`
 onMounted(() => {
   backURl.url = baseIMG;
-  console.error(backURl.url);
 
 });
 const login = async (params: any) => {
@@ -56,13 +56,8 @@ const login = async (params: any) => {
     .then((res: any) => {
       if (res.code == "1002") {
         proxy.$Message.success(res.message);
-        userstate.$patch((state) => {
-          console.log(state);
-          state.isLogin = true;
-          state.userInfo = res;
-        });
-        console.log(userstate);
-
+        userstate.setUserInfo(res)
+        userstate.setUserMenu()
         setTimeout(() => {
           route.push("/");
         }, 1000);
@@ -81,20 +76,19 @@ const login = async (params: any) => {
                 onOk: () => {
                   setTimeout(() => {
                     proxy.$Modal.remove();
-                    userstate.$patch((state) => {
-                      state.isLogin = true;
-                      state.userInfo = res;
-                    });
+                    userstate.setUserInfo(res)
+                    userstate.setUserMenu()
                     route.push("/news");
                   }, 2000);
                 },
               });
             });
-          console.log("ip", ip);
+          //console.log("ip", ip);
         });
       } else {
         proxy.$Message.warning(res.message);
       }
+
     });
 };
 const getIPs = (callback: { (ip: any): void; (arg0: string): void }) => {
@@ -142,7 +136,7 @@ const getIPs = (callback: { (ip: any): void; (arg0: string): void }) => {
   );
   setTimeout(function () {
     var lines = pc.localDescription.sdp.split("\n");
-    console.log(lines);
+    //console.log(lines);
 
     lines.forEach(function (line: string | string[]) {
       if (line.indexOf("a=candidate:") === 0) handleCandidate(line);

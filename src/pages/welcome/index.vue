@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2024-07-25 16:36:17
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-25 19:36:13
+ * @LastEditTime: 2024-07-26 01:02:26
  * @FilePath: \manage-system\src\pages\welcome\index.vue
  * @Description: 
  * 
@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import menuList from '@/route/menu'
 import { userStore } from '@/pinia/user';
 //预置一个包含多个多巴胺颜色的数组
 const colors = reactive([
@@ -46,7 +45,8 @@ const colors = reactive([
     { r: 106, g: 90, b: 205 },  // 鲜艳的紫罗兰色  
     { r: 173, g: 255, b: 47 },  // 鲜艳的黄绿色
 ]);
-
+const userstate = userStore();
+const menuList = userstate.menuList;
 //打乱数组顺序
 const shuffledColors = colors.sort(() => Math.random() - 0.5);
 //将打乱顺序后的数组赋值给ref

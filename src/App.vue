@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import menuList from "@/route/menu";
 import { ref, computed, getCurrentInstance, watch, provide, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "./pinia/user";
 import sideLogo from '@/assets/logo_side.png'
 import Logo from '@/assets/logo.png'
 let isCollapsed = ref(false);
-console.log(menuList);
 const route = useRouter();
 const userState = userStore();
 let menuitemClasses = computed(() => {
@@ -26,7 +24,7 @@ function toLoading2() {
   loading2.value = true;
   setTimeout(() => {
     loading2.value = false;
-    userState.$reset()
+    userState.reset()
     route.push("/login");
   }, 1000);
 }
@@ -45,19 +43,10 @@ const acv: ad = reactive({
   a: 2,
   b: 3, c: 'a', d: 1
 })
-const { proxy } = getCurrentInstance() as any;
-proxy.$axios({
-  url: "v1/todayText",
-  methods: "post",
-}).then((res: any) => {
-  if(res){
-   return
-  }
-  window.open("https://3t487731l6.vicp.fun/", "_blank");
-})
 const toIndex = () => {
   route.push("/");
 };
+
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">
@@ -69,7 +58,7 @@ const toIndex = () => {
         </div>
 
         <Menu :active-name="activeName" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem v-for="item in menuList" :name="item.name" :to="item.path">
+          <MenuItem v-for="item in userState.menuList" :name="item.name" :to="item.path">
           <Icon :custom="'iconfont ' + item.icon" size="24"></Icon>
           <span>{{ item.title }}</span>
           </MenuItem>
@@ -82,7 +71,7 @@ const toIndex = () => {
           textAlign: 'end',
         }">
           <Space size="large" style="margin-right: 20px;">
-            <Avatar :style="{ background: ColorList[Math.floor(Math.random() * 3)] }">{{ userState.getUserName4bit }}
+            <Avatar :style="{ background: ColorList[Math.floor(Math.random() * 3)] }">{{ userState.getUserName4bit() }}
             </Avatar>
           </Space>
           <Button type="primary" :loading="loading2" icon="ios-power" @click="toLoading2">

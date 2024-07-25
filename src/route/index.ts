@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2024-07-24 16:55:11
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-25 17:27:50
+ * @LastEditTime: 2024-07-26 01:11:47
  * @FilePath: \manage-system\src\route\index.ts
  * @Description: 
  * 
@@ -67,15 +67,21 @@ const router = createRouter({
   routes: routes,
 });
 router.beforeEach((to, from, next) => {
+  const state = userStore();
+  state.getUserInfo()
   ViewUIPlus.LoadingBar.start();
-  if (!userStore().checkLogin) {
+  if (!state.isLogin || !state) {
     if (to.name == "login") {
       next();
     } else {
       next("login");
     }
   } else {
-    next();
+    if (!state.menuList.find((item: { path: string; }) => item.path == to.path) && to.path !='/') {
+      next(from.path);
+    }else{
+      next();
+    }
   }
 });
 router.afterEach(route => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg" style="background: url(backURl);">
+  <div class="bg" style="background: url({{backURl}});">
     <div class="demo-login">
       <Login @on-submit="handleSubmit">
         <UserName name="username" />

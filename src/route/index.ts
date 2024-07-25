@@ -2,7 +2,7 @@
  * @Author: wway 951357249@qq.com
  * @Date: 2024-07-24 16:55:11
  * @LastEditors: wway 951357249@qq.com
- * @LastEditTime: 2024-07-24 20:35:34
+ * @LastEditTime: 2024-07-25 15:05:43
  * @FilePath: \manage-system\src\route\index.ts
  * @Description: 
  * 
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "index",
-    redirect: "/news",
+    component: () => import("@/pages/main/index.vue"),
   },
   {
     path: "/login",

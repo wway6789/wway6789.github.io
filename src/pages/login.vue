@@ -54,7 +54,6 @@ const login = async (params: any) => {
       data: params,
     })
     .then((res: any) => {
-      console.log(res);
       if (res.code == "1002") {
         proxy.$Message.success(res.message);
         userstate.$patch((state) => {
@@ -65,7 +64,7 @@ const login = async (params: any) => {
         console.log(userstate);
 
         setTimeout(() => {
-          route.push("/news");
+          route.push("/");
         }, 1000);
       } else if (res.code == "1001") {
         getIPs((ip) => {

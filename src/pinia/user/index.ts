@@ -1,9 +1,19 @@
+/*
+ * @Author: wway 951357249@qq.com
+ * @Date: 2024-07-24 16:55:11
+ * @LastEditors: wway 951357249@qq.com
+ * @LastEditTime: 2024-07-25 21:20:42
+ * @FilePath: \manage-system\src\pinia\user\index.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ */
 import { defineStore } from "pinia";
 export const userStore = defineStore("user", {
   state: () => {
     return {
       userInfo: {} as any,
-      isLogin:false
+      isLogin: false
     };
   },
   getters: {
@@ -13,11 +23,12 @@ export const userStore = defineStore("user", {
     getUserId(): string {
       return this.userInfo.id;
     },
-    checkLogin():boolean{
-        return this.isLogin
+    checkLogin(): boolean {
+      return this.isLogin
     },
-    getUserName4bit():string{
-        return this.getUserName.substr(0,4)
+    getUserName4bit(): string {
+      let str = this.getUserName
+      return str.length > 3 ? str.substr(0, 4) : str
     }
   },
   actions: {
@@ -26,9 +37,7 @@ export const userStore = defineStore("user", {
     },
     saveUserInfo(params: object) {
       this.userInfo = params;
+      localStorage.setItem("userInfo", JSON.stringify(params));
     },
-  },
-  persist: {
-    enabled: true,
-  },
+  }
 });

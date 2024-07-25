@@ -1,5 +1,5 @@
 <template>
-  <Tree :data="data4" show-checkbox multiple @on-check-change="aa"></Tree>
+  <!-- <Tree :data="data4" show-checkbox multiple @on-check-change="aa"></Tree> -->
   <Table border :columns="columns7" :data="data6"></Table>
   <Button type="primary" @click="modal = true">Display dialog box</Button>
   <Modal v-model="modal" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel">

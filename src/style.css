@@ -88,6 +88,46 @@ button:focus-visible {
   width: 100%;
 }
 
+@font-face {
+  font-family: "iconfont";
+  /* Project id 3921923 */
+  src: url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff2?t=1677579610158") format("woff2"),
+    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff?t=1677579610158") format("woff"),
+    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.ttf?t=1677579610158") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-calendar:before {
+  content: "\e63b";
+}
+
+.icon-xinwennews:before {
+  content: "\e665";
+}
+
+.icon-gushicijianshang:before {
+  content: "\e7a7";
+}
+
+.icon-tousujianyi:before {
+  content: "\e603";
+}
+
+.icon-xiaohua:before {
+  content: "\e655";
+}
+
+.icon-user:before {
+  content: "\ed68";
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

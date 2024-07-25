@@ -1,7 +1,4 @@
 <template>
-  <!--写一个动态设置bg 地址 -->
-
-
   <div class="bg" :style="{ 'background-image': `url(${backURl.url})` }">
     <div class="demo-login">
       <Login @on-submit="handleSubmit">

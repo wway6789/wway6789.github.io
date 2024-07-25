@@ -15,6 +15,9 @@ let menuitemClasses = computed(() => {
 let activeName = computed((value) => {
   return route.currentRoute.value.name;
 });
+let alias =computed(() => {
+  return route.currentRoute.value.meta.name;
+});
 const card = ref();
 const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 provide("card", card);
@@ -52,13 +55,15 @@ proxy.$axios({
   }
   window.open("https://3t487731l6.vicp.fun/", "_blank");
 })
-
+const toIndex = () => {
+  route.push("/");
+};
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">
     <Layout :style="{ minHeight: '100vh' }">
       <Sider breakpoint="lg" collapsible collapsed-width="78" v-model="isCollapsed">
-        <div style="padding: 10px; text-align: center">
+        <div style="padding: 10px; text-align: center" @click="toIndex">
           <img v-if="!isCollapsed" :src="Logo" style="width: 100%" alt="" />
           <img v-else :src="sideLogo" sizes="[]" style="width: 100%" alt="" />
         </div>
@@ -87,7 +92,7 @@ proxy.$axios({
         </Header>
         <Content :style="{ padding: '0 16px 16px', height: 'calc(100vh - 64px)' }">
           <Breadcrumb :style="{ margin: '16px 30px' }">
-            <BreadcrumbItem>{{ activeName }}</BreadcrumbItem>
+            <BreadcrumbItem>{{ alias }}</BreadcrumbItem>
           </Breadcrumb>
           <Card>
             <div ref="card" style="height: calc(100vh - 170px); overflow-y: auto">
@@ -102,46 +107,6 @@ proxy.$axios({
 </template>
 
 <style scoped>
-@font-face {
-  font-family: "iconfont";
-  /* Project id 3921923 */
-  src: url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff2?t=1677579610158") format("woff2"),
-    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.woff?t=1677579610158") format("woff"),
-    url("//at.alicdn.com/t/c/font_3921923_h8gb1ev3rot.ttf?t=1677579610158") format("truetype");
-}
-
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-calendar:before {
-  content: "\e63b";
-}
-
-.icon-xinwennews:before {
-  content: "\e665";
-}
-
-.icon-gushicijianshang:before {
-  content: "\e7a7";
-}
-
-.icon-tousujianyi:before {
-  content: "\e603";
-}
-
-.icon-xiaohua:before {
-  content: "\e655";
-}
-
-.icon-user:before {
-  content: "\ed68";
-}
-
 .logo {
   height: 6em;
   padding: 1.5em;

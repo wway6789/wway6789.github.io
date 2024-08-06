@@ -136,7 +136,7 @@ function queryList() {
               // 可以根据需要添加更多筛选条件  
             ],
             filterMultiple: false,
-            filterMethod: (value, column) => {
+            filterMethod: (value: string, column: { createTime: string | number | Date; }) => {
               const rowDate = new Date(column.createTime).getTime()
               const now = new Date().getTime();
               if (value === 'week') {

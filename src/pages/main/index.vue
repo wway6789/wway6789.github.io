@@ -1,3 +1,13 @@
+<!--
+ * @Author: wway 951357249@qq.com
+ * @Date: 2024-07-24 16:55:11
+ * @LastEditors: wway 951357249@qq.com
+ * @LastEditTime: 2024-07-31 12:04:55
+ * @FilePath: \manage-system\src\pages\main\index.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+-->
 <script lang="ts" setup>
 import { ref, reactive, getCurrentInstance } from "vue";
 let msg = ref();
@@ -17,106 +27,6 @@ proxy
     loading.value = false;
     newList.value = res;
   });
-let arr = [
-  {
-    type: "a",
-    QIYEPAY: "200",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "b",
-    QIYEPAY: "300",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "c",
-    QIYEPAY: "400",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "d",
-    QIYEPAY: "500",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "e",
-    QIYEPAY: "600",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "f",
-    QIYEPAY: "700",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "0",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "g",
-    QIYEPAY: "200",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "0",
-  },
-  {
-    type: "h",
-    QIYEPAY: "300",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-  {
-    type: "i",
-    QIYEPAY: "100",
-    FUWUPAY: "300",
-    QIYETOTALPAY: "400",
-    HONGBAOPAY: "300",
-    FENBEIPAY: "100",
-  },
-];
-let arr2: any = [];
-let indexArr: any = [
-  { type: "QIYEPAY", name: "企业支付金额(元)" },
-  { type: "FUWUPAY", name: "服务 (元)" },
-  { type: "QIYETOTALPAY", name: "企业支付总金额" },
-  { type: "HONGBAOPAY", name: "红包券支付全额" },
-  { type: "FENBEIPAY", name: "分贝通支付金额" },
-]; //列出有哪几种支付方式
-
-indexArr.map((i: any, v: any) => {
-  //i 为具体的一种支付方式  i 的种类是固定的
-  let obj: any = { name: i.name }; //index
-  arr.map((item: any) => {
-    obj[item.type] = item[i.type]; //item.type 是对应的酒店 机票 火车 外卖... //item[i] 是酒店/外卖/火车... 下具体使用的支付方式 i 的种类是固定的
-    if(item[i.type]*1<1){
-      obj[item.type] = '--'
-    }
-  });
-  arr2.push(obj);
-});
-//console.log(arr2);
-
-// [{ type: 'QIYEPAY', 'a': '200', 'b': '300', 'c': '400', 'd': '500', 'e': '600', 'f': '700', 'g': '200', 'h': '300', 'i': '100' },
-// { type: 'FUWUPAY', 'a': '300', 'b': '300', 'c': '300', 'd': '300', 'e': '300', 'f': '300', 'g': '300', 'h': '300', 'i': '300' },
-// { type: 'QIYETOTALPAY', 'a': '400', 'b': '400', 'c': '400', 'd': '400', 'e': '400', 'f': '400', 'g': '400', 'h': '400', 'i': '400' },
-// { type: 'HONGBAOPAY', 'a': '300', 'b': '300', 'c': '300', 'd': '300', 'e': '300', 'f': '300', 'g': '300', 'h': '300', 'i': '300' }]
 </script>
 <template lang="">
   <Skeleton animated :loading="loading" />
@@ -124,7 +34,8 @@ indexArr.map((i: any, v: any) => {
     <ListItem v-for="item in newList" :key="item.title">
       <Row :gutter="50" justify="center" align="middle">
         <Col :xs="24" :sm="12" :md="10" :lg="10" :xl="8" :xxl="5"
-          ><img :src="item.pic" alt=""
+          >
+          <img :src="item.pic" alt=""
         /></Col>
         <Col :xs="24" :sm="12" :md="14" :lg="8" :xl="11" :xxl="15">
           <Link :to="item.href" target="_blank">

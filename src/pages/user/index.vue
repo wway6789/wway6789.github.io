@@ -11,6 +11,7 @@
         :columns="columns2"
         :data="user.list"
         :loading="loading"
+        stripe
         size="small"
         ref="table"
       ></Table></Col
@@ -41,8 +42,16 @@
     <div class="demo-drawer-profile">
       <Row v-for="item in UserProfile">
         <Col span="24" v-if="item[1]">
-          <span style="font-weight: 500">{{ item[0] }}</span
-          >: {{ item[1] }}
+          <Row>
+            <Col>
+              <span style="font-weight: 500;display: inline-block;">{{ item[0] }}</span
+              >:
+            </Col>
+            <Col  >
+              <span style="font-weight: 900;display: inline-block;">{{ item[1] }}</span
+              >
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
@@ -50,9 +59,7 @@
   </Drawer>
 </template>
 
-<style lang="scss"></style>
 <script setup lang="ts">
-import { totalmem } from "os";
 import {
   ref,
   reactive,
@@ -61,8 +68,10 @@ import {
   onMounted,
   inject,
   resolveComponent,
+  render,
+  h,
+  watch,
 } from "vue";
-import { Step, Steps, Tag } from "view-ui-plus";
 const currentInstance = getCurrentInstance() as any;
 const { proxy } = currentInstance;
 let columns2: any = ref([]);
@@ -71,10 +80,10 @@ let user = reactive({ list: [] });
 let table = ref();
 let isShowDraw = ref(false);
 //console.log(proxy);
-const card: any = inject("card");
+// const card: any = inject("card");
 let winheight = ref(200);
 let currentPage = ref(1);
-let PageSize = ref(15);
+let PageSize = ref(30);
 let total = ref(0);
 let pStyle = {
   fontSize: "16px",
@@ -84,6 +93,14 @@ let pStyle = {
   marginBottom: "16px",
 };
 let UserProfile = ref({});
+let filterName = ref("")
+watch(filterName,(newVal,oldVal)=>{
+  console.log(newVal,oldVal)
+})
+watch(user.list, (newVal, oldVal) => {
+  console.log(newVal, oldVal);
+});
+
 function queryList() {
   loading.value = true;
   columns2.value = [];
@@ -102,15 +119,56 @@ function queryList() {
       }, 1000);
 
       Object.keys(res.result[0]).map((item: any, index) => {
-        return columns2.value.unshift({
+        const column: any = {
           title: item,
           key: item,
-          width:
-            item === "pwd" || item === "id" || item === "address" ? 300 : 150,
-          fixed: item === "name" ? "left" : "none",
-          //   sortable: true,
-          //   sortType: "desc",
-        });
+          width: item === "pwd" || item === "id" || item === "address" ? 300 : 150
+
+        }
+       
+        if (item == 'createTime') {
+          Object.assign(column, {
+            fixed: 'left',
+            filters: [
+              { label: '最近一周', value: 'week' },
+              { label: '最近三天', value: '3day' },
+              { label: '最近一天', value: 'day' },
+              // 可以根据需要添加更多筛选条件  
+            ],
+            filterMultiple: false,
+            filterMethod: (value, column) => {
+              const rowDate = new Date(column.createTime).getTime()
+              const now = new Date().getTime();
+              if (value === 'week') {
+                filterName.value = value
+                total.value = user.list.length;
+
+                return rowDate > now - 7 * 24 * 60 * 60 * 1000;
+              } else if (value === '3day') {
+                filterName.value = value
+                total.value = user.list.length;
+
+                return rowDate > now - 3 * 24 * 60 * 60 * 1000;
+              } else if (value === 'day') {
+                filterName.value = value
+                total.value = user.list.length;
+                return rowDate > now - 24 * 60 * 60 * 1000;
+              }
+              filterName.value = value
+              return true; // 默认返回 true，表示不筛选  
+            }
+          })
+        }
+        if (item === "name") {
+          Object.assign(column, {
+            fixed: 'left'
+          })
+        }
+        columns2.value.unshift(column);
+      });
+      columns2.value.unshift({ title: "序号", key: "index", width: 80, fixed: "left", render(h: any, params: any) {
+          return h("div", params.index + 1);
+        },
       });
       columns2.value.push({
         title: "操作",
@@ -165,11 +223,14 @@ const onChange = (page: any) => {
   currentPage.value = page;
   queryList();
 };
-const Towinheight =()=>{
-  if (card.value.offsetHeight - 125 > 400) {
-  return  card.value.offsetHeight - 125;
-  }
-  return null
+const Towinheight = () => {
+  console.error(proxy.$refs.table);
+  
+  return 600
+  // if (card.value.offsetHeight - 125 > 400) {
+  //   return card.value.offsetHeight - 125;
+  // }
+  // return null
 }
 onMounted(() => {
   //console.log(card.value.offsetHeight);

@@ -1,9 +1,15 @@
 <script lang="ts" setup>
-import { ref, computed, getCurrentInstance, watch, provide, reactive } from "vue";
+import { ref, computed, getCurrentInstance, watch, provide, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "./pinia/user";
 import sideLogo from '@/assets/logo_side.png'
 import Logo from '@/assets/logo.png'
+import { useObserver } from "@/untils/observes";
+import { tabStore } from "./pinia/tabs";
+import { VueDraggable } from "vue-draggable-plus";
+const elementRef = ref(null);
+const { isIntersecting, observe } = useObserver();
+
 let isCollapsed = ref(false);
 const route = useRouter();
 const userState = userStore();
@@ -13,12 +19,13 @@ let menuitemClasses = computed(() => {
 let activeName = computed((value) => {
   return route.currentRoute.value.name;
 });
-let alias =computed(() => {
+let alias = computed(() => {
   return route.currentRoute.value.meta.name;
 });
-const card = ref();
+let tabState = tabStore()
+// const card = ref();
 const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
-provide("card", card);
+// provide("card", card);
 let loading2 = ref(false);
 function toLoading2() {
   loading2.value = true;
@@ -46,18 +53,19 @@ const acv: ad = reactive({
 const toIndex = () => {
   route.push("/");
 };
-
+onMounted(() => {
+  // observe(elementRef);
+});
 </script>
 <template>
   <div v-if="activeName != 'login'" class="layout">
-    <Layout :style="{ minHeight: '100vh' }">
+    <Layout>
       <Sider breakpoint="lg" collapsible collapsed-width="78" v-model="isCollapsed">
-        <div style="padding: 10px; text-align: center" @click="toIndex">
-          <img v-if="!isCollapsed" :src="Logo" style="width: 100%" alt="" />
-          <img v-else :src="sideLogo" sizes="[]" style="width: 100%" alt="" />
+        <div style="width: 100%;;display: flex;justify-content: center;align-items: center;margin: 100px 0;">
+          <Image v-if="!isCollapsed" :src="Logo" fit="fit" width="120px" height="50px" alt="" />
+          <Image v-else :src="sideLogo" sizes="[]" fit="fit" width="50px" height="50px" alt="" />
         </div>
-
-        <Menu :active-name="activeName" theme="dark" width="auto" :class="menuitemClasses">
+        <Menu ref="elementRef" :active-name="activeName" theme="dark" width="auto" :class="menuitemClasses">
           <MenuItem v-for="item in userState.menuList" :name="item.name" :to="item.path">
           <Icon :custom="'iconfont ' + item.icon" size="24"></Icon>
           <span>{{ item.title }}</span>
@@ -65,11 +73,7 @@ const toIndex = () => {
         </Menu>
       </Sider>
       <Layout>
-        <Header :style="{
-          background: '#fff',
-          boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)',
-          textAlign: 'end',
-        }">
+        <Header :style="{ textAlign: 'end', maginRight: '20px' }">
           <Space size="large" style="margin-right: 20px;">
             <Avatar :style="{ background: ColorList[Math.floor(Math.random() * 3)] }">{{ userState.getUserName4bit() }}
             </Avatar>
@@ -79,15 +83,28 @@ const toIndex = () => {
             <span v-else>Loading...</span>
           </Button>
         </Header>
-        <Content :style="{ padding: '0 16px 16px', height: 'calc(100vh - 64px)' }">
-          <Breadcrumb :style="{ margin: '16px 30px' }">
-            <BreadcrumbItem>{{ alias }}</BreadcrumbItem>
-          </Breadcrumb>
-          <Card>
-            <div ref="card" style="height: calc(100vh - 170px); overflow-y: auto">
-              <router-view></router-view>
-            </div>
-          </Card>
+        <div>
+          <VueDraggable v-model=" tabState.tabs">
+            <Tag v-for="item in tabState.tabs" type="dot" closable checkable :color="item.color"
+              @on-change="tabState.switchTab(item.name)" @on-close="tabState.removeTab(item.name)" :name="item.name">{{
+              item.meta }}</Tag>
+          </VueDraggable>
+
+        </div>
+        <Content :style="{
+          height: 'calc(100vh - 100px)',
+          background: '#fff',
+          overflow: 'scroll',
+          boxSizing: ' border-box'
+
+        }">
+          <!-- <Card> -->
+            <!-- <div ref="card"> -->
+              <keep-alive> <router-view></router-view></keep-alive>
+
+
+            <!-- </div> -->
+          <!-- </Card> -->
         </Content>
       </Layout>
     </Layout>
@@ -96,24 +113,36 @@ const toIndex = () => {
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.layout {
+  background: #f5f7f9;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.layout-logo {
+  width: 100px;
+  height: 30px;
+  background: #5b6270;
+  border-radius: 3px;
+  float: left;
+  position: relative;
+  top: 15px;
+  left: 20px;
 }
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.layout-nav {
+  width: 420px;
+  margin: 0 auto;
+  margin-right: 20px;
 }
 
-.layout-con {
-  height: 100%;
-  width: 100%;
+.layout-footer-center {
+  text-align: center;
+}
+
+.dev-run-preview .dev-run-preview-edit {
+  display: none
 }
 
 .menu-item span {

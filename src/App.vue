@@ -94,8 +94,9 @@ onMounted(() => {
         <Content :style="{
           height: 'calc(100vh - 100px)',
           background: '#fff',
-          overflow: 'scroll',
-          boxSizing: ' border-box'
+          overflow: 'auto',
+          boxSizing: ' border-box',
+          padding: '20px',
 
         }">
           <!-- <Card> -->
